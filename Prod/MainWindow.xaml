@@ -1,0 +1,95 @@
+﻿<Window x:Class="Prod.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:Prod"
+        mc:Ignorable="d"
+        Title="Performance Monitor" Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="_CPU">
+                <MenuItem Header="Total" Click="MenuItem_Total_Click"/>
+                <MenuItem Header="Logical Processors" Click="MenuItem_LogicalProcessors_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="CPU Usage">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ContentControl Name="MainContent" Margin="10"/>
+
+                    <ListView Name="ProcessorInfoList" Grid.Row="1" Margin="10">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Property" DisplayMemberBinding="{Binding Key}" Width="200"/>
+                                <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="400"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Memory Usage">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <lvc:CartesianChart Name="MemoryChart" Margin="10"/>
+
+                    <ListView Name="Mem" Grid.Row="1" Margin="10">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Property" DisplayMemberBinding="{Binding Key}" Width="200"/>
+                                <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="400"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Disk Usage">
+                <Grid>
+                    <TabControl Name="DynamicTabControlDisk" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Network Usage">
+                <Grid>
+                    <TabControl Name="DynamicTabControlNetwork" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="GPU Usage">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="GpuChartGrid" Margin="10">
+                            
+                        </Grid>
+                    </ScrollViewer>
+
+                    <ListView Name="GPUInfoList" Grid.Row="1" Margin="10">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Property" DisplayMemberBinding="{Binding Key}" Width="200"/>
+                                <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="400"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            
+        </TabControl>
+    </Grid>
+</Window>
